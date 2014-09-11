@@ -1,0 +1,808 @@
+<!DOCTYPE html><? from formatting import *; ?>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="description" content="TODO" />
+	<meta name="keywords" content="TODO" />
+	<meta name="author" content="nutbread" />
+	<title>Advanced SubStation Alpha Python Library</title>
+	<link rel="shortcut icon" href="favicon.png" />
+	<link rel="stylesheet" href="style.css" />
+	<script src="script.js"></script>
+</head>
+<body>
+
+
+<div class="header_bar">
+	<div class="main main_no_overflow header">
+
+		<table class="header_table"><tbody>
+			<tr>
+				<td class="header_table_cell">
+					<div class="header_table_name">
+						<a class="header_table_name_user link_external link_author light_underline" href="https://nutbread.github.io/"><span>nutbread</span></a><span class="header_table_name_separator">/</span><a href="" class="header_table_name_title link_external link_title light_underline"><span>ass</span></a>
+					</div>
+				</td>
+				<td class="header_table_cell">
+					<div class="header_table_separator"></div>
+				</td>
+				<td class="header_table_cell header_table_cell_full">
+					<div class="header_table_description">
+						<div class="header_table_description_name">Advanced SubStation Alpha python library</div>
+						<div class="header_table_description_body">Easy macro commands for modifying .ass files</div>
+					</div>
+				</td>
+				<td class="header_table_cell">
+					<a class="header_table_view_on_github link_external link_view_on_github light_nohover_color_hover" href="https://github.com/nutbread/ass">
+						<div class="header_table_view_on_github_line1">view on</div>
+						<div class="header_table_view_on_github_line2">github</div>
+					</a>
+				</td>
+			</tr>
+		</tbody></table>
+
+	</div>
+</div>
+<div class="main body">
+	<div class="main_table">
+		<div class="main_table_full">
+			<div>
+
+				<h1 id="ass.py"><span class="hardlink_text">ass.py<a class="hardlink" href="#ass.py"></a></span></h1>
+				<p>
+					<code>ass.py</code> is a python library that handles <a class="link_external light_underline_inverse" href="https://en.wikipedia.org/wiki/SubStation_Alpha" target="_blank"><span>(Advanced) SubStation Alpha</span></a> subtitle files. Its functionality includes reading, writing, and editing of subtitle lines.
+				</p>
+				<p>
+					Its public interface provides several macro commands, and also allows for more fine-grain editing of specific lines, styles, and metadata.
+				</p>
+
+				<h4 id="required.software"><span class="hardlink_text">Required software<a class="hardlink" href="#required.software"></a></span></h4>
+				<p>
+					<ul>
+						<li><a class="link_external light_underline_inverse" href="https://www.python.org/downloads/" target="_blank"><span>python</span></a> &ndash; versions 2.x or 3.x should both work</li>
+					</ul>
+				</p>
+
+				<h4 id="download"><span class="hardlink_text">Download<a class="hardlink" href="#download"></a></span></h4>
+				<p>
+					<ul>
+						<li><a class="link_codebase light_underline_inverse" href="https://github.com/nutbread/ass/blob/master/src/ass.py" target="_blank"><span>ass.py</span></a> / <a class="link_codebase_raw light_underline_inverse" href="https://raw.githubusercontent.com/nutbread/ass/master/src/ass.py" target="_blank" download="ass.py"><span>download</span></a> &ndash; main python library</li>
+					</ul>
+				</p>
+
+				<h1 id="documentation"><span class="hardlink_text">Documentation<a class="hardlink" href="#documentation"></a></span></h1>
+				<p>
+					<code>ass.py</code>'s usage paradigm is designed to make it quick and easy to use, with method design similar to that of <a class="link_external light_underline_inverse" href="https://jquery.com/" target="_blank"><span>jQuery</span></a>. That is, a single command provides many options for what and how it should perform, and multiple commands can be chained easily.
+				</p>
+				<p>
+					Note that clicking the <code>+</code> and <code>&minus;</code> symbols on the left of list entries (along with entry name itself) will expand/contract information about the entry.
+				</p>
+
+				<h6 id="module.members"><span class="hardlink_text">Module members<a class="hardlink" href="#module.members"></a></span></h6>
+				<p>
+					The following members are accessable at the module level:
+				</p>
+				<p>
+					<ul>
+						<li>
+							<code><strong>version_info</strong></code><br />
+							An array containing the version number information. For example, <code>[1, 0]</code> represents version <code>"1.0"</code>. The length of this array is arbitrary and subject to change.
+						</li>
+						<li>
+							<code><strong>ASS</strong></code><br />
+							The main class which contains all the useful methods. Methods and members of <code>ASS</code> are described below.
+						</li>
+					</ul>
+				</p>
+
+				<h4 id="ASS"><span class="hardlink_text">ASS<a class="hardlink" href="#ASS"></a></span></h4>
+				<p>
+					The <code>ASS</code> class contains values, methods, and classes related to subtitle file data. When instantiated, it represents a subtitles file which can then be modified.
+				</p>
+
+				<?= section_header("Class members", "ASS.class.members", "ASS") ?>
+				<p>
+					The following are constants defined on the <code>ASS</code> class:
+				</p>
+				<p>
+					<ul class="doc_list">
+						<?
+pyp.write(member_header(
+	"ASS",
+	[
+		("ALIGN_BOTTOM_LEFT", { "value": 1, }),
+		("ALIGN_BOTTOM_CENTER", { "value": 2, }),
+		("ALIGN_BOTTOM_RIGHT", { "value": 3, }),
+		("ALIGN_MIDDLE_LEFT", { "value": 4, }),
+		("ALIGN_MIDDLE_CENTER", { "value": 5, }),
+		("ALIGN_MIDDLE_RIGHT", { "value": 6, }),
+		("ALIGN_TOP_LEFT", { "value": 7, }),
+		("ALIGN_TOP_CENTER", { "value": 8, }),
+		("ALIGN_TOP_RIGHT", { "value": 9, }),
+	],
+	{ "id": "ALIGN_CONSTANTS", "description": 'Constants representing the alignment of an event or style. Their names are self explanatory.', }
+));
+						?>
+					</ul>
+				</p>
+
+				<?= section_header("Class methods", "ASS.class.methods", "ASS") ?>
+				<p>
+					The following are <code>@classmethod</code>s defined on the <code>ASS</code> class:
+				</p>
+				<p>
+					<ul class="doc_list">
+						<?
+pyp.write(function_header(
+	"ASS",
+	("parse_text", { "description": 'Modifies an ASS formatted event by the different types of parts found within it.', }),
+	("string", { "description": 'A modified version of the input text after having any specified modification functions performed on it', }),
+	[
+		("text", { "type": "string", "description": 'A formatted subtitle line string to modify', }),
+		("modify_text", { "default": None, "type": "function", "description": 'A function to modify strings of text. The function should perform the following:<br /><code>modified_text = modify_text(original_text);</code>', }),
+		("modify_special", { "default": None, "type": "function", "description": 'A function to modify groupless tags (<code>\\h, \\n, \\N</code>). The function should perform the following:<br /><code>modified_text = modify_special(original_text);</code><br />If left as <code>None</code>, these tags will be captured along with text using <code>modify_text</code>', }),
+		("modify_tag_block", { "default": None, "type": "function", "description": 'A function to modify groups of tags, including <code>{}</code> brackets. The function should perform the following:<br /><code>modified_text = modify_tag_block(original_text);</code>', }),
+		("modify_tag", { "default": None, "type": "function", "description": ...?>
+A function to modify tags found inside <code>{}</code> brackets. The function should perform the following:<br />
+<code>array_of_tag_args = modify_tag(tag_args);</code><br />
+<strong><code>tag_args</code></strong> &ndash; an array in the form <code>[ tag_name, <span class="italic">tag_arg1, tag_arg2, ... </span>]</code><br />
+<strong><code>array_of_tag_args</code></strong> &ndash; an array of tag arguments in the same form as the <code>tag_args</code>.<br />
+To perform no change on the input, a function could look like: <code>(lambda tag: [ tag ])</code>
+		<?... .strip(), }),
+		("modify_comment", { "default": None, "type": "function", "description": 'A function to modify comments found inside <code>{}</code> brackets. The function should perform the following:<br /><code>modified_text = modify_comment(original_text);</code>', }),
+		("modify_geometry", { "default": None, "type": "function", "description": 'A function to modify geometry drawing commands that aren\'t found in <code>{}</code> brackets. The function should perform the following:<br /><code>modified_text = modify_geometry(original_text);</code>', }),
+	]
+));
+pyp.write(function_header(
+	"ASS",
+	("parse_tags", { "description": 'Modifies a block of tags that would normally be found inside <code>{}</code> brackets.', }),
+	("2-tuple", { "description": 'The first entry of the return tuple is the modified input text.<br />The second entry is the number of the last <code>\\p#</code> tag found, or <code>next_geometry_scale</code> if none are found.', }),
+	[
+		("text", { "type": "string", "description": 'The string of tags to modify, not including <code>{}</code> brackets', }),
+		("modify_tag", { "default": None, "type": "function", "description": 'See: <code><a class="light_underline_inverse" href="#ASS.class.members.parse_text.modify_tag"><span>parse_text.modify_tag</span></a></code>', }),
+		("modify_comment", { "default": None, "type": "function", "description": 'See: <code><a class="light_underline_inverse" href="#ASS.class.members.parse_text.modify_comment"><span>parse_text.modify_comment</span></a></code>', }),
+		("next_geometry_scale", { "default": 0, "type": "any", "description": 'The default value of the second entry in the return tuple', }),
+	]
+));
+pyp.write(function_header(
+	"ASS",
+	("replace_special", { "description": 'Replaces special text escape codes (<code>\\h, \\n, \\N</code>) with <code>space</code>. If the length of the new space and surrounding whitespace is outside the range <code>[min_whitespace_length, max_whitespace_length]</code>, the total whitespace is replace with a single <code>space</code>.', }),
+	("string", { "description": 'A modified version of the input text', }),
+	[
+		("text", {}),
+		("space", { "default": " ", "type": "string", "description": 'The character/string to use as a replacement', }),
+		("min_whitespace_length", { "default": 1, "type": "integer", "description": 'The minimum length a new group of whitespace can be before being replaced by a single <code>space</code>', }),
+		("max_whitespace_length", { "default": 1, "type": "integer", "description": 'The maximum length a new group of whitespace can be before being replaced by a single <code>space</code>', }),
+	]
+));
+pyp.write(function_header(
+	"ASS",
+	("get_line_alignment", { "description": 'Get the alignment value of an <code>ASS.Event</code> instance.', }),
+	("number", { "description": 'The alignment constant value of event', }),
+	[
+		("event", { "type": "ASS.Event", "description": 'An instance of a <code>ASS.Event</code> to check', }),
+		("deep", { "default": True, "type": "boolean", "description": 'If <code>True</code>, the events\'s text are checked for any alignment tags', }),
+	]
+));
+pyp.write(function_header(
+	"ASS",
+	("get_xy_alignment", { "description": 'Converts an alignment constant to its horizontal and vertical components', }),
+	("2-tuple", { "description": 'A tuple containing the horizontal and vertical components. First entry is the horizontal component, and the second is the vertical.', }),
+	[
+		("align", { "type": "integer", "description": 'The alignment constant to convert', }),
+	]
+));
+						?>
+					</ul>
+				</p>
+
+				<?= section_header("Instance members", "ASS.instance.members", "ASS") ?>
+				<p>
+					The following are members of instances of the <code>ASS</code> class. Not all of them should be modified directly.
+				</p>
+				<p>
+					<ul class="doc_list">
+						<?
+pyp.write(member_header(
+	"ASS",
+	("script_info_ordered", { "type": "list", }),
+	{ "description": 'A list of <code>ASS.Info</code> instances in the order they will be written to an output file. This list can be modified so long as nothing is added or removed; i.e., it can be re-arranged or sorted.', }
+));
+pyp.write(member_header(
+	"ASS",
+	("script_info", { "type": "dict", }),
+	{ "description": 'A dict of info keys to <code>ASS.Info</code> instances. Used for easier and faster access to script info settings. Values in this dict can be modified, but values should not be manually added or deleted.', }
+));
+pyp.write(member_header(
+	"ASS",
+	("styles_format", { "type": "list", }),
+	{ "description": 'A list containing the format ordering and naming of styles to be used when outputting an <code>.ass</code> file.', }
+));
+pyp.write(member_header(
+	"ASS",
+	("styles", { "type": "list", }),
+	{ "description": 'A list of <code>ASS.Style</code> instances which may be in use by the instance.', }
+));
+pyp.write(member_header(
+	"ASS",
+	("events_format", { "type": "list", }),
+	{ "description": 'A list containing the format ordering and naming of events to be used when outputting an <code>.ass</code> file.', }
+));
+pyp.write(member_header(
+	"ASS",
+	("events", { "type": "list", }),
+	{ "description": 'A list of <code>ASS.Event</code> instances representing all of the events in the file.', }
+));
+						?>
+					</ul>
+				</p>
+
+				<?= section_header("Instance methods", "ASS.instance.methods", "ASS") ?>
+				<p>
+					The following are methods performable on instances of the <code>ASS</code> class:
+				</p>
+				<p>
+					<ul class="doc_list">
+						<?
+pyp.write(function_header(
+	None,
+	("ASS", { "description": 'Create a new instance. The instance will be empty, <strong>including the format order descriptors.</strong>', }),
+	("instance", { "description": 'A new instance of the <code>ASS</code> class', }),
+	[]
+));
+pyp.write(function_header(
+	"ASS",
+	("read", { "description": 'Read an <code>.ass</code> file into the object, clearing all previous data in the process.', }),
+	("self", { "description": 'The return value is the instance the method was performed on', }),
+	[
+		("filename", { "type": "string", "description": 'The name of the <code>.ass</code> subtitles file to read in', }),
+	]
+));
+pyp.write(function_header(
+	"ASS",
+	("write", { "description": 'Write the subtitles to an Advanced SubStation Alpha formatted file.', }),
+	("self", { "description": 'The return value is the instance the method was performed on', }),
+	[
+		("filename", { "type": "string", "description": 'The name of the file to write <code>.ass</code> subtitles to', }),
+		("comments", { "default": None, "type": "None | list", "description": 'A list of comments to be added in the script info. If left as <code>None</code>, a single comment will be added indicating script was generated by <code>ass.py</code>.', }),
+	]
+));
+pyp.write(function_header(
+	"ASS",
+	("write_srt", { "description": 'Write the subtitles to a <a class="light_underline_inverse" href="https://en.wikipedia.org/wiki/SubRip" target="_blank"><span>SubRip</span></a> formatted file. This currently does not support formatting; as such, formatting/formatted lines may be removed.', }),
+	("self", { "description": 'The return value is the instance the method was performed on', }),
+	[
+		("filename", { "type": "string", "description": 'The name of the file to write <code>.srt</code> subtitles to', }),
+		("overlap", { "default": True, "kw": True, "type": "boolean", "description": 'If <code>True</code>, overlapping timecodes are unchanged.<br />If <code>False</code>, overlapping time codes are merged into groups of concurrent times.<br /><span class="light"><code>overlap=False</code> is useful for things which don\'t support overlapping timecodes, such as YouTube.</span>' }),
+		("newlines", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, <code>.ass</code> newlines (<code>\\n, \\N</code>) are preserved.<br />If <code>False</code>, newlines are replaced with spaces.', }),
+		("remove_identical", { "default": True, "kw": True, "type": "boolean", "description": 'If <code>True</code>, identical lines (after removing formatting tags) are removed.<br />If <code>False</code>, they are not removed.', }),
+	]
+));
+pyp.write(function_header(
+	"ASS",
+	("reformat", { "description": 'Updates the format keys and ordering of events', }),
+	("self", { "description": 'The return value is the instance the method was performed on', }),
+	[
+		("alias", { "default": False, "kw": True, "type": "boolean", "description": 'Does nothing since there are no alternate spellings; kept for consistency with <code><a class="light_underline_inverse" href="#ASS.instance.methods.reformat_styles"><span>ASS.reformat_styles</span></a></code>', }),
+	]
+));
+pyp.write(function_header(
+	"ASS",
+	("reformat_styles", { "description": 'Updates the format keys and ordering of styles', }),
+	("self", { "description": 'The return value is the instance the method was performed on', }),
+	[
+		("alias", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, the spelling "color" is used in format lists.<br />If <code>False</code>, the spelling "colour" is used.', }),
+	]
+));
+pyp.write(function_header(
+	"ASS",
+	("add", { "description": 'Adds a new event to the list of events', }),
+	("self", { "description": 'The return value is the instance the method was performed on', }),
+	[
+		("event", { "type": "ASS.Event instance", "description": 'The event to add', }),
+	]
+));
+pyp.write(function_header(
+	"ASS",
+	("add_style", { "description": 'Adds a new style to the list of styles', }),
+	("self", { "description": 'The return value is the instance the method was performed on', }),
+	[
+		("style", { "type": "ASS.Style instance", "description": 'The style to add', }),
+	]
+));
+pyp.write(function_header(
+	"ASS",
+	("tidy", { "description": 'Perform organization actions on the events of an <code>ASS</code> instance.', }),
+	("self", { "description": 'The return value is the instance the method was performed on', }),
+	[
+		("sort", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, events are sorted by starting timecode', }),
+		("join", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, sequential events that would appear as one are joined into a single event', }),
+		("join_naive", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, event joining will ignore any animated tags and join them anyway', }),
+		("remove_unseen", { "default": True, "kw": True, "type": "boolean", "description": 'If <code>True</code>, events with <code>Start >= End</code> will be removed since they will not be visible', }),
+	]
+));
+pyp.write(function_header(
+	"ASS",
+	("tidy_styles", { "description": 'Perform organization actions on the styles of an <code>ASS</code> instance.', }),
+	("self", { "description": 'The return value is the instance the method was performed on', }),
+	[
+		("sort", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, styles are sorted by name', }),
+		("join", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, duplicate styles joined into a single style', }),
+		("join_if_names_differ", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, duplicate styles that have different names are also joined', }),
+		("rename", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, styles with identical names are renamed', }),
+		("rename_function", { "default": None, "kw": True, "type": "function", "description": 'If not <code>None</code>, this function modifies the duplicate names. This is only called on duplicate named styles, and is called as:<br /><code>new_name = rename_function(old_name, index); # index starts at 0</code>', }),
+		("remove_unused", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, unused styles are removed', }),
+	]
+));
+pyp.write(function_header(
+	"ASS",
+	("shiftscale", { "description": ...?>
+Shift and/or scale timecodes and/or geometry in a timecode range.<br />
+The final equation for timecode modification is:<br />
+<code>tc = (tc - scale_origin) * scale + scale_origin + offset</code><br />
+The final equation for geometry modification is:<br />
+<code>gx = (gx - scale_origin[0]) * scale[0] + scale_origin[0] + offset[0]</code><br />
+<code>gy = (gy - scale_origin[1]) * scale[1] + scale_origin[1] + offset[1]</code>
+	<?... .strip(), }),
+	("self", { "description": 'The return value is the instance the method was performed on', }),
+	[
+		("start", { "default": None, "kw": True, "type": "None | float", "description": 'Timecode to start at, or <code>None</code> for no lower bound', }),
+		("end", { "default": None, "kw": True, "type": "None | float", "description": 'Timecode to start at, or <code>None</code> for no upper bound', }),
+		("full_inclusion", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, event must be completely contained within specified timecode range; i.e.:<br /><code>event.Start &gt;= start and event.End &lt;= end</code><br />If <code>False</code>, event must be partially contained within specified timecode range; i.e.:<br /><code>not (event.Start &gt;= end or event.End &lt;= start)</code>', }),
+		("inverse", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, the operation is performed on all events <strong>not</strong> contained in the timecode range', }),
+		("split", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, timecodes that are partially contained in the timecode range are split into multiple events', }),
+		("split_naive", { "default": False, "kw": True, "type": "boolean", "description": u'If <code>True</code>, timecode splitting ignores any animation tags in the text and na\u00efvely copies the original text.<br /><span class="strikethru">If <code>False</code>, animation tags are properly split.</span><span class="light"> (not implemented yet)</span>', }),
+		("filter_types", { "default": None, "kw": True, "type": "list | dict | ...", "description": 'An object used to filter certain types of events out, such as comments. Can be any object supporting the <code>in</code> operator.<br />If <code>None</code>, no filtering is performed; else, events satisfying <code>event.type in filter_types</code> are included.', }),
+		("time_scale", { "default": 1.0, "kw": True, "type": "float", "description": 'The value by which timecodes will be scaled', }),
+		("time_scale_origin", { "default": 0.0, "kw": True, "type": "float", "description": 'The center time at which timecodes are scaled around', }),
+		("time_offset", { "default": 0.0, "kw": True, "type": "float", "description": 'The value which will be added to timecodes', }),
+		("time_clip_start", { "default": None, "kw": True, "type": "None | float", "description": 'Starting cutoff timecode, or <code>None</code> for no lower bound. Applied after new timecodes are computed.', }),
+		("time_clip_end", { "default": None, "kw": True, "type": "None | float", "description": 'Ending cutoff timecode, or <code>None</code> for no lower bound. Applied after new timecodes are computed.', }),
+		("geometry_resolution", { "default": None, "kw": True, "type": "None | 2-tuple", "description": '<code>(width, height)</code> tuple specifying the new resolution.<br />If <code>geometry_scale</code> is <strong>not</strong> specified, all geometry values are scaled to the new resolution.<br />If <code>geometry_scale</code> <strong>is</strong> specified, this acts as the new bounds for the subtitles.', }),
+		("geometry_scale", { "default": None, "kw": True, "type": "None | 2-tuple", "description": '<code>(xscale, yscale)</code> tuple specifying the values to scale geometry coordinates by.<br />If left as <code>None</code>, no scaling is performed unless <code>geometry_resolution</code> is set.<br />If the subtitle events are to retain their sizes, but the video size is to be changed, change <code>geometry_resolution</code> appropriately and set <code>geometry_scale</code> to <code>(1, 1)</code>.', }),
+		("geometry_scale_origin", { "default": (0.0, 0.0), "kw": True, "type": "2-tuple", "description": '<code>(xcenter, ycenter)</code> tuple specifying the coordinate at which geometry is scaled around', }),
+		("geometry_offset", { "default": (0.0, 0.0), "kw": True, "type": "2-tuple", "description": '<code>(xoffset, yoffset)</code> tuple specifying values to be added to geometry coordinates', }),
+		("geometry_new_styles", { "default": True, "kw": True, "type": "boolean", "description": 'If <code>True</code>, new styles will be generated for any changes in margins and geometric values.<br />If <code>False</code>, margins and values will be updated inside their events.', }),
+	]
+));
+pyp.write(function_header(
+	"ASS",
+	("loop", { "description": 'Extend a timecode to a range, or loop a range over a new range.<br />At least one of <code>(time, start, end)</code> must be specified.', }),
+	("self", { "description": 'The return value is the instance the method was performed on', }),
+	[
+		("time", { "default": None, "kw": True, "type": "None | float", "description": 'Timecode to loop, or <code>None</code> to use <code>start</code> and <code>end</code> instead', }),
+		("start", { "default_as": "time", "kw": True, "type": "None | float", "description": 'Timecode to start at, or <code>None</code> for the minimum timecode', }),
+		("end", { "default_as": "time", "kw": True, "type": "None | float", "description": 'Timecode to start at, or <code>None</code> for the maximum timecode', }),
+		("filter_types", { "default": None, "kw": True, "type": "list | dict | ...", "description": 'An object used to filter certain types of events out, such as comments. Can be any object supporting the <code>in</code> operator.<br />If <code>None</code>, no filtering is performed; else, events satisfying <code>event.type in filter_types</code> are included.', }),
+		("length", { "default": None, "kw": True, "type": "None | float", "description": 'The new total length of time the section should be looped over. Must be greater than 0.', }),
+		("count", { "default": None, "kw": True, "type": "None | float", "description": 'Number of times to loop the section in the specified range. If <code>start == end</code>, this value is ignored and <code>length</code> must be used. Must be greater than 0.', }),
+	]
+));
+pyp.write(function_header(
+	"ASS",
+	("extract", { "description": 'Remove events from the <code>ASS</code> instance and/or copy them into another instance.', }),
+	("self", { "description": 'The return value is the instance the method was performed on', }),
+	[
+		("start", { "default": None, "kw": True, "type": "None | float", "description": 'Timecode to start at, or <code>None</code> for no lower bound', }),
+		("end", { "default": None, "kw": True, "type": "None | float", "description": 'Timecode to start at, or <code>None</code> for no upper bound', }),
+		("full_inclusion", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, event must be completely contained within specified timecode range; i.e.:<br /><code>event.Start &gt;= start and event.End &lt;= end</code><br />If <code>False</code>, event must be partially contained within specified timecode range; i.e.:<br /><code>not (event.Start &gt;= end or event.End &lt;= start)</code>', }),
+		("inverse", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, the operation is performed on all events <strong>not</strong> contained in the timecode range', }),
+		("split", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, timecodes that are partially contained in the timecode range are split into multiple events', }),
+		("split_naive", { "default": False, "kw": True, "type": "boolean", "description": u'If <code>True</code>, timecode splitting ignores any animation tags in the text and na\u00efvely copies the original text.<br /><span class="strikethru">If <code>False</code>, animation tags are properly split.</span><span class="light"> (not implemented yet)</span>', }),
+		("filter_types", { "default": None, "kw": True, "type": "list | dict | ...", "description": 'An object used to filter certain types of events out, such as comments. Can be any object supporting the <code>in</code> operator.<br />If <code>None</code>, no filtering is performed; else, events satisfying <code>event.type in filter_types</code> are included.', }),
+		("filter_function", { "default": None, "kw": True, "type": "None | function", "description": 'If <code>None</code>, no additional filtering is performed. Else, this function takes an <Code>ASS.Event</code> instance as an input and should return a boolean value: <code>True</code> if it should be processed for extraction, <code>False</code> to skip; i.e.:<br /><code>process_event = filter_function(event);</code>', }),
+		("remove", { "default": True, "kw": True, "type": "boolean", "description": 'If <code>True</code>, events are removed from <code>self</code>; otherwise they are kept', }),
+		("other", { "default": None, "kw": True, "type": "None | ASS instance", "description": 'If not <code>None</code>, events are removed/copied into this object', }),
+	]
+));
+pyp.write(function_header(
+	"ASS",
+	("merge", { "description": 'Merge or copy events from one instance into another.', }),
+	("self", { "description": 'The return value is the instance the method was performed on', }),
+	[
+		("filter_types", { "default": None, "kw": True, "type": "list | dict | ...", "description": 'An object used to filter certain types of events out, such as comments. Can be any object supporting the <code>in</code> operator.<br />If <code>None</code>, no filtering is performed; else, events satisfying <code>event.type in filter_types</code> are included.', }),
+		("remove", { "default": True, "kw": True, "type": "boolean", "description": 'If <code>True</code>, events are removed from the <code>other</code> object; otherwise they are copied.', }),
+		("other", { "default": None, "kw": True, "type": "ASS instance", "description": 'Events are copied from this object into the <code>self</code> object', }),
+		("time_offset", { "default": 0.0, "kw": True, "type": "float", "description": 'A time by which to offset all added timecodes', }),
+	]
+));
+pyp.write(function_header(
+	"ASS",
+	("remove_formatting", { "description": '', }),
+	("self", { "description": 'The return value is the instance the method was performed on', }),
+	[
+		("start", { "default": None, "kw": True, "type": "None | float", "description": 'Timecode to start at, or <code>None</code> for no lower bound', }),
+		("end", { "default": None, "kw": True, "type": "None | float", "description": 'Timecode to start at, or <code>None</code> for no upper bound', }),
+		("full_inclusion", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, event must be completely contained within specified timecode range; i.e.:<br /><code>event.Start &gt;= start and event.End &lt;= end</code><br />If <code>False</code>, event must be partially contained within specified timecode range; i.e.:<br /><code>not (event.Start &gt;= end or event.End &lt;= start)</code>', }),
+		("inverse", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, the operation is performed on all events <strong>not</strong> contained in the timecode range', }),
+		("split", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, timecodes that are partially contained in the timecode range are split into multiple events', }),
+		("split_naive", { "default": False, "kw": True, "type": "boolean", "description": u'If <code>True</code>, timecode splitting ignores any animation tags in the text and na\u00efvely copies the original text.<br /><span class="strikethru">If <code>False</code>, animation tags are properly split.</span><span class="light"> (not implemented yet)</span>', }),
+		("filter_types", { "default": None, "kw": True, "type": "list | dict | ...", "description": 'An object used to filter certain types of events out, such as comments. Can be any object supporting the <code>in</code> operator.<br />If <code>None</code>, no filtering is performed; else, events satisfying <code>event.type in filter_types</code> are included.', }),
+		("tags", { "default": True, "kw": True, "type": "boolean", "description": 'If <code>True</code>, groups of tags are removed (along with any relevant drawing commands)', }),
+		("comments", { "default": True, "kw": True, "type": "boolean", "description": 'If <code>True</code>, comments are removed', }),
+		("geometry", { "default": True, "kw": True, "type": "boolean", "description": 'If <code>True</code>, geometry drawing commands (outside of tag groups) are removed', }),
+		("special", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, groupless tags (<code>\\h, \\n, \\N</code>) are replaced with whitespace', }),
+	]
+));
+pyp.write(function_header(
+	"ASS",
+	("resolution", { "description": 'Get the resolution of a subtitles file.', }),
+	("2-tuple", { "description": 'A <code>(width, height)</code> tuple of the resolution. Returns <code>(0, 0)</code> if the resolution could not be detected.', }),
+	[]
+));
+						?>
+					</ul>
+				</p>
+
+				<h4 id="ASS.Formatters"><span class="hardlink_text">ASS.Formatters<a class="hardlink" href="#ASS.Formatters"></a></span></h4>
+				<p>
+					Members of this class are primarily used internally for decoding/encoding subtitle file information, but a few methods can also be useful externally:
+				</p>
+
+				<?= section_header("Class methods", "ASS.Formatters.class.methods", "ASS.Formatters") ?>
+				<p>
+					<ul class="doc_list">
+						<?
+pyp.write(function_header(
+	"Formatters",
+	("timecode_to_str_generic", { "description": 'Takes a timecode as a float and converts it into a string.', }),
+	("string", { "description": 'A string representation of the input timecode', }),
+	[
+		("timecode", { "type": "float", "description": 'A time in seconds', }),
+		("decimal_length", { "default": 2, "type": "integer", "description": 'Number of digits after the decimal indicator', }),
+		("seconds_length", { "default": 2, "type": "integer", "description": 'Minimum number of digits used to represent the integer part of the seconds', }),
+		("minutes_length", { "default": 2, "type": "integer", "description": 'Minimum number of digits used to represent the number minutes', }),
+		("hours_length", { "default": 1, "type": "integer", "description": 'Minimum number of digits used to represent the number of hours', }),
+	]
+));
+pyp.write(function_header(
+	"Formatters",
+	("str_to_timecode", { "description": 'Takes a timecode as a string and converts it into a float.', }),
+	("float", { "description": 'A floating point representation of the input timecode, in seconds', }),
+	[
+		("val", { "type": "string", "description": 'A string formatted timecode. The following are acceptable formats:<br /><span class="light">(the number of digits for each part doesn\'t matter)</span><br /><code>S.SSS</code><br /><code>MM:SS.SSS</code><br /><code>H:MM:SS.SSS</code>', }),
+	]
+));
+						?>
+					</ul>
+				</p>
+
+				<h4 id="ASS.Info"><span class="hardlink_text">ASS.Info<a class="hardlink" href="#ASS.Info"></a></span></h4>
+				<p>
+					An instance of <code>ASS.Info</code> represents a line found in the <code>[Script Info]</code> section of an <code>.ass</code> file. It should be obvious what the <code>key</code> and <code>value</code> members refer to.
+				</p>
+
+				<?= section_header("Instance members", "ASS.Info.instance.members", "ASS.Info") ?>
+				<p>
+					<ul class="doc_list">
+						<?
+pyp.write(member_header(
+	"Info",
+	("key", { "type": "string", }),
+	{ "description": 'The key of the entry', }
+));
+pyp.write(member_header(
+	"Info",
+	("value", { "type": "string", }),
+	{ "description": 'The value of the entry', }
+));
+						?>
+					</ul>
+				</p>
+
+				<h4 id="ASS.Style"><span class="hardlink_text">ASS.Style<a class="hardlink" href="#ASS.Style"></a></span></h4>
+				<p>
+					This class contains info about a certain style found in a subtitles file. Data is loaded from the <code>[V4+ Styles]</code> section of a file.
+				</p>
+
+				<?= section_header("Instance members", "ASS.Style.instance.members", "ASS.Style") ?>
+				<p>
+					<ul class="doc_list">
+						<?
+pyp.write(member_header(
+	"Event",
+	("type", { "type": "string", }),
+	{ "description": 'The type of style; typically <code>"Style"</code>.', }
+));
+pyp.write(member_header(
+	"Event",
+	("fake", { "type": "boolean", }),
+	{ "description": '<code>True</code> if the style name could not be resolved when loading; <code>False</code> if it\'s a valid style.', }
+));
+pyp.write(member_header(
+	"Style",
+	("Name", { "type": "string", }),
+	{ "description": 'The name of the style', }
+));
+pyp.write(member_header(
+	"Style",
+	("Fontname", { "type": "string", }),
+	{ "description": 'The name of the font used', }
+));
+pyp.write(member_header(
+	"Style",
+	("Fontsize", { "type": "float", }),
+	{ "description": 'The size of the font', }
+));
+pyp.write(member_header(
+	"Style",
+	("PrimaryColor", { "type": "4-tuple", }),
+	{ "description": 'The primary color for text, represented as a tuple of <code>(R, G, B, A)</code>.<br /><code>RGBA</code> values range from 0 - 255 inclusive. For alpha, 255 is opaque and 0 is transparent.', }
+));
+pyp.write(member_header(
+	"Style",
+	("SecondaryColor", { "type": "4-tuple", }),
+	{ "description": 'The secondary (karaoke) color for text, represented as a tuple of <code>(R, G, B, A)</code>.<br /><code>RGBA</code> values range from 0 - 255 inclusive. For alpha, 255 is opaque and 0 is transparent.', }
+));
+pyp.write(member_header(
+	"Style",
+	("OutlineColor", { "type": "4-tuple", }),
+	{ "description": 'The outline color for text, represented as a tuple of <code>(R, G, B, A)</code>.<br /><code>RGBA</code> values range from 0 - 255 inclusive. For alpha, 255 is opaque and 0 is transparent.', }
+));
+pyp.write(member_header(
+	"Style",
+	("BackColor", { "type": "4-tuple", }),
+	{ "description": 'The shadow color for text, represented as a tuple of <code>(R, G, B, A)</code>.<br /><code>RGBA</code> values range from 0 - 255 inclusive. For alpha, 255 is opaque and 0 is transparent.', }
+));
+pyp.write(member_header(
+	"Style",
+	("Bold", { "type": "boolean", }),
+	{ "description": 'Whether or not the text should be bold', }
+));
+pyp.write(member_header(
+	"Style",
+	("Italic", { "type": "boolean", }),
+	{ "description": 'Whether or not the text should be italic', }
+));
+pyp.write(member_header(
+	"Style",
+	("Underline", { "type": "boolean", }),
+	{ "description": 'Whether or not the text should be underlined', }
+));
+pyp.write(member_header(
+	"Style",
+	("StrikeOut", { "type": "boolean", }),
+	{ "description": 'Whether or not the text should have a strikethrough', }
+));
+pyp.write(member_header(
+	"Style",
+	("ScaleX", { "type": "integer", }),
+	{ "description": 'The horizontal scaling of the text, in percent. <code>100</code> is the normal value.', }
+));
+pyp.write(member_header(
+	"Style",
+	("ScaleY", { "type": "integer", }),
+	{ "description": 'The vertical scaling of the text, in percent. <code>100</code> is the normal value.', }
+));
+pyp.write(member_header(
+	"Style",
+	("Spacing", { "type": "integer", }),
+	{ "description": 'Extra spacing used inbetween letters, in script pixels', }
+));
+pyp.write(member_header(
+	"Style",
+	("Angle", { "type": "float", }),
+	{ "description": 'Rotation of the text, in counter-clockwise degrees', }
+));
+pyp.write(member_header(
+	"Style",
+	("BorderStyle", { "type": "integer", }),
+	{ "description": 'The style of the border. <code>1</code> = outline + drop shadow, <code>3</code> = opaque box.', }
+));
+pyp.write(member_header(
+	"Style",
+	("Outline", { "type": "integer", }),
+	{ "description": 'The size of the outline around text, in script pixels', }
+));
+pyp.write(member_header(
+	"Style",
+	("Shadow", { "type": "integer", }),
+	{ "description": 'The offset of the shadow from the text, in script pixels', }
+));
+pyp.write(member_header(
+	"Style",
+	("Alignment", { "type": "integer", }),
+	{ "description": 'The alignment of the text. The value will be one of the <a class="light_underline_inverse" href="#ASS.class.members.ALIGN_CONSTANTS"><span>alignment constants</span></a>.', }
+));
+pyp.write(member_header(
+	"Style",
+	("MarginL", { "type": "integer", }),
+	{ "description": 'The left margin for text', }
+));
+pyp.write(member_header(
+	"Style",
+	("MarginR", { "type": "integer", }),
+	{ "description": 'The right margin for text', }
+));
+pyp.write(member_header(
+	"Style",
+	("MarginV", { "type": "integer", }),
+	{ "description": 'The vertical margin for text.<br />If the alignment is to the top, this value is the top margin.<br />If the alignment is to the bottom, this value is the bottom margin.', }
+));
+pyp.write(member_header(
+	"Style",
+	("Encoding", { "type": "integer", }),
+	{ "description": 'The font character set or encoding; this value is usually <code>0</code>.', }
+));
+						?>
+					</ul>
+				</p>
+
+				<?= section_header("Instance methods", "ASS.Style.instance.methods", "ASS.Style") ?>
+				<p>
+					<ul class="doc_list">
+						<?
+pyp.write(function_header(
+	None,
+	("Style", { "description": 'Create a new instance. The instance will contain all default values.', }),
+	("instance", { "description": 'A new instance of the <code>Style</code> class', }),
+	[]
+));
+pyp.write(function_header(
+	"Style",
+	("copy", { "description": 'Copys one instance to another', }),
+	("ASS.Style", { "description": 'If <code>other</code> was <code>None</code>, a copy of <code>self</code> is returned.<br />If <code>other</code> was not <code>None</code>, <code>self</code> is returned.', }),
+	[
+		("other", { "default": None, "type": "None | ASS.Style", "description": 'If <code>None</code>, <code>self</code> is copied into a new instance and that instance is returned.<br />Otherwise, values from <code>other</code> are copied into <code>self</code>.<span class="light"> (<code>self</code> is modified, <strong>not</strong> <code>other</code>)</span>', }),
+	]
+));
+pyp.write(function_header(
+	"Style",
+	("equals", { "description": 'Compares all the members of two instances', }),
+	("boolean", { "description": 'Returns <code>True</code> if they match, <code>False</code> otherwise', }),
+	[
+		("other", { "type": "ASS.Style", "description": 'The second instance to compare against', }),
+	]
+));
+						?>
+					</ul>
+				</p>
+
+				<h4 id="ASS.Event"><span class="hardlink_text">ASS.Event<a class="hardlink" href="#ASS.Event"></a></span></h4>
+				<p>
+					This class represents a single event found in a subtitles file. Data is loaded from the <code>[Events]</code> section of a file.
+				</p>
+
+				<?= section_header("Instance members", "ASS.Event.instance.members", "ASS.Event") ?>
+				<p>
+					<ul class="doc_list">
+						<?
+pyp.write(member_header(
+	"Event",
+	("type", { "type": "string", }),
+	{ "description": 'The type of event; typically <code>"Comment"</code> or <code>"Dialogue"</code>.', }
+));
+pyp.write(member_header(
+	"Event",
+	("Layer", { "type": "integer", }),
+	{ "description": 'The layer the event is on', }
+));
+pyp.write(member_header(
+	"Event",
+	("Start", { "type": "float", }),
+	{ "description": 'The starting timecode for the event', }
+));
+pyp.write(member_header(
+	"Event",
+	("End", { "type": "float", }),
+	{ "description": 'The ending timecode for the event', }
+));
+pyp.write(member_header(
+	"Event",
+	("Style", { "type": "ASS.Style", }),
+	{ "description": 'The style instance for the event; this instance is shared among multiple <code>Event</code> objects.', }
+));
+pyp.write(member_header(
+	"Event",
+	("Name", { "type": "string", }),
+	{ "description": 'The name of the character speaking', }
+));
+pyp.write(member_header(
+	"Event",
+	("MarginL", { "type": "integer", }),
+	{ "description": 'The left margin for text', }
+));
+pyp.write(member_header(
+	"Event",
+	("MarginR", { "type": "integer", }),
+	{ "description": 'The right margin for text', }
+));
+pyp.write(member_header(
+	"Event",
+	("MarginV", { "type": "integer", }),
+	{ "description": 'The vertical margin for text.<br />If the alignment is to the top, this value is the top margin.<br />If the alignment is to the bottom, this value is the bottom margin.', }
+));
+pyp.write(member_header(
+	"Event",
+	("Text", { "type": "string", }),
+	{ "description": 'The contents of the event; typically a subtitle line', }
+));
+						?>
+					</ul>
+				</p>
+
+				<?= section_header("Instance methods", "ASS.Event.instance.methods", "ASS.Event") ?>
+				<p>
+					<ul class="doc_list">
+						<?
+pyp.write(function_header(
+	None,
+	("Event", { "description": 'Create a new instance. The instance will contain all default values.', }),
+	("instance", { "description": 'A new instance of the <code>Event</code> class', }),
+	[]
+));
+pyp.write(function_header(
+	"Event",
+	("copy", { "description": 'Copys one instance to another', }),
+	("ASS.Event", { "description": 'If <code>other</code> was <code>None</code>, a copy of <code>self</code> is returned.<br />If <code>other</code> was not <code>None</code>, <code>self</code> is returned.', }),
+	[
+		("other", { "default": None, "type": "None | ASS.Event", "description": 'If <code>None</code>, <code>self</code> is copied into a new instance and that instance is returned.<br />Otherwise, values from <code>other</code> are copied into <code>self</code>.<span class="light"> (<code>self</code> is modified, <strong>not</strong> <code>other</code>)</span>', }),
+	]
+));
+pyp.write(function_header(
+	"Event",
+	("equals", { "description": 'Compares all the members of two instances', }),
+	("boolean", { "description": 'Returns <code>True</code> if they match, <code>False</code> otherwise', }),
+	[
+		("other", { "type": "ASS.Event", "description": 'The second instance to compare against', }),
+	]
+));
+pyp.write(function_header(
+	"Event",
+	("same_style", { "description": 'Compares the styles of event to another. Basically the same as <code>equals</code>, except it ignores timecodes and text differences.', }),
+	("boolean", { "description": 'Returns <code>True</code> if they match, <code>False</code> otherwise', }),
+	[
+		("other", { "type": "ASS.Event", "description": 'The second instance to compare against', }),
+	]
+));
+						?>
+					</ul>
+				</p>
+
+			</div>
+		</div>
+		<div class="main_table_side navigation_column"><div class="navigation_container">
+			<div class="navigation"><div class="navigation_padding"><div class="navigation_body">
+				<div class="navigation_option"><a class="navigation_option_link" href="#ass.py"><span>ass.py</span></a></div>
+				<div class="navigation_subsection">
+					<div class="navigation_option"><a class="navigation_option_link" href="#required.software"><span>Required software</span></a></div>
+					<div class="navigation_option"><a class="navigation_option_link" href="#download"><span>Download</span></a></div>
+				</div>
+				<div class="navigation_option"><a class="navigation_option_link" href="#documentation"><span>Documentation</span></a></div>
+				<div class="navigation_subsection">
+					<div class="navigation_option"><a class="navigation_option_link" href="#module.members"><span>Module members</span></a></div>
+					<div class="navigation_option"><a class="navigation_option_link" href="#ASS"><span>ASS</span></a></div>
+					<div class="navigation_subsection">
+						<div class="navigation_option"><a class="navigation_option_link" href="#ASS.class.members"><span>Class members</span></a></div>
+						<div class="navigation_option"><a class="navigation_option_link" href="#ASS.class.methods"><span>Class methods</span></a></div>
+						<div class="navigation_option"><a class="navigation_option_link" href="#ASS.instance.members"><span>Instance members</span></a></div>
+						<div class="navigation_option"><a class="navigation_option_link" href="#ASS.instance.methods"><span>Instance methods</span></a></div>
+					</div>
+					<div class="navigation_option"><a class="navigation_option_link" href="#ASS.Formatters"><span>ASS.Formatters</span></a></div>
+					<div class="navigation_subsection">
+						<div class="navigation_option"><a class="navigation_option_link" href="#ASS.Formatters.class.methods"><span>Class methods</span></a></div>
+					</div>
+					<div class="navigation_option"><a class="navigation_option_link" href="#ASS.Info"><span>ASS.Info</span></a></div>
+					<div class="navigation_subsection">
+						<div class="navigation_option"><a class="navigation_option_link" href="#ASS.Info.instance.members"><span>Instance members</span></a></div>
+					</div>
+					<div class="navigation_option"><a class="navigation_option_link" href="#ASS.Style"><span>ASS.Style</span></a></div>
+					<div class="navigation_subsection">
+						<div class="navigation_option"><a class="navigation_option_link" href="#ASS.Style.instance.members"><span>Instance members</span></a></div>
+						<div class="navigation_option"><a class="navigation_option_link" href="#ASS.Style.instance.methods"><span>Instance methods</span></a></div>
+					</div>
+					<div class="navigation_option"><a class="navigation_option_link" href="#ASS.Event#"><span>ASS.Event</span></a></div>
+					<div class="navigation_subsection">
+						<div class="navigation_option"><a class="navigation_option_link" href="#ASS.Event.instance.members"><span>Instance members</span></a></div>
+						<div class="navigation_option"><a class="navigation_option_link" href="#ASS.Event.instance.methods"><span>Instance methods</span></a></div>
+					</div>
+				</div>
+			</div></div></div>
+		</div></div>
+	</div>
+</div>
+
+
+</body>
+</html>
+
