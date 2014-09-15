@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import os, re, sys, functools, collections;
-version_info = ( 1 , 0 );
+version_info = ( 1 , 0 , 1 );
 
 
 
@@ -996,8 +996,15 @@ class ASS:
 		# Done
 		return self;
 	def __write_srt_sort_lines_compare(self, line1, line2):
-		# Sort by vertical alignment
+		# Sort by position
 		order = 1;
+		pos1 = self.__get_line_position(line1.event);
+		pos2 = self.__get_line_position(line2.event);
+		if (pos1 is not None and pos2 is not None):
+			if (pos1[1] > pos2[1]): return -order;
+			if (pos1[1] < pos2[1]): return order;
+
+		# Sort by vertical alignment
 		align1_y = self.get_xy_alignment(self.get_line_alignment(line1.event, True))[1];
 		align2_y = self.get_xy_alignment(self.get_line_alignment(line2.event, True))[1];
 
@@ -1111,6 +1118,28 @@ class ASS:
 			else: align_x = 0;
 
 		return ( align_x , align_y );
+	@classmethod
+	def __get_line_position(cls, event):
+		state = [ None ];
+
+		# Check more
+		cls.parse_text(event.Text, modify_tag=(lambda t: cls.__get_line_position_modify_tag(state, t)));
+
+		# Return
+		return state[0];
+	@classmethod
+	def __get_line_position_modify_tag(cls, state, tag):
+		if (state[0] is None):
+			tag_name = tag[0];
+			if (tag_name == "pos"):
+				try:
+					state[0] = ( float(tag[1]) , float(tag[2]) );
+				except ValueError:
+					pass;
+
+		# Done
+		return [ tag ];
+
 
 
 	# Line parsing
