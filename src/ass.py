@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import os, re, sys, functools, collections;
-version_info = ( 1 , 0 , 1 );
+version_info = ( 1 , 0 , 2 );
 
 
 
@@ -863,12 +863,12 @@ class ASS:
 		overlap = self.__kwarg_default(kwargs, "overlap", True); # if True, overlapping timecodes are allowed; else, overlapping timecodes are split
 		newlines = self.__kwarg_default(kwargs, "newlines", False); # if True, minimal newlines are preserved
 		remove_identical = self.__kwarg_default(kwargs, "remove_identical", True); # if True, identical lines (after tags are changed/removed) are removed
+		join = self.__kwarg_default(kwargs, "join", True); # if True, identical sequential lines are joined
 
 		# Source
 		source = [];
 
 		# Events
-		line_id = 1;
 		sorted_events = [];
 		for i in range(len(self.events)):
 			event = self.events[i];
@@ -902,7 +902,8 @@ class ASS:
 				# Next
 				i += 1;
 
-		# Process
+		# Format
+		lines = [];
 		while (event_count > 0):
 			if (overlap):
 				# Simple mode; no overlap check
@@ -980,13 +981,32 @@ class ASS:
 				text.append(e.text);
 
 			# Add
-			source.append(u"{0:d}\n".format(line_id));
+			lines.append([ block_start , block_end , "\n".join(text) ]);
+
+		# Join
+		if (join):
+			i = 0;
+			i_max = len(lines) - 1;
+			while (i < i_max):
+				if (lines[i][2] == lines[i + 1][2] and lines[i][1] == lines[i + 1][0]):
+					lines[i][1] = lines[i + 1][1];
+					lines.pop(i + 1);
+					i_max -= 1;
+					continue;
+
+				# Next
+				i += 1;
+
+		# Process
+		for i in range(len(lines)):
+			line_start, line_end, line_text = lines[i];
+
+			source.append(u"{0:d}\n".format(i + 1));
 			source.append(u"{0:s} --> {1:s}\n".format(
-				self.Formatters.timecode_to_str_generic(block_start, 3, 2, 2, 2).replace(".", ","),
-				self.Formatters.timecode_to_str_generic(block_end, 3, 2, 2, 2).replace(".", ",")
+				self.Formatters.timecode_to_str_generic(line_start, 3, 2, 2, 2).replace(".", ","),
+				self.Formatters.timecode_to_str_generic(line_end, 3, 2, 2, 2).replace(".", ",")
 			));
-			source.append(u"{0:s}\n\n".format("\n".join(text)));
-			line_id += 1;
+			source.append(u"{0:s}\n\n".format(line_text));
 
 		# Write file
 		f = open(filename, "wb");
