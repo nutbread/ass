@@ -320,6 +320,9 @@ pyp.write(function_header(
 		("join", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, sequential events that would appear as one are joined into a single event', }),
 		("join_naive", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, event joining will ignore any animated tags and join them anyway', }),
 		("remove_unseen", { "default": True, "kw": True, "type": "boolean", "description": 'If <code>True</code>, events with <code>Start >= End</code> will be removed since they will not be visible', }),
+		("snap_start", { "default": 0.0, "kw": True, "type": "float", "description": 'Starting timecodes within the specified amount of seconds will be snapped to the same timecode (of the first event)', }),
+		("snap_end", { "default": 0.0, "kw": True, "type": "float", "description": 'Ending timecodes within the specified amount of seconds will be snapped to the same timecode (of the first event)', }),
+		("snap_together", { "default": 0.0, "kw": True, "type": "float", "description": 'Starting/ending timecodes within the specified amount of seconds will be snapped to the same timecode (of the first event). Note that this only applies to a difference between a starting and ending timecode, and not start/start or end/end timecodes.', }),
 	]
 ));
 pyp.write(function_header(
