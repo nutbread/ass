@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import os, re, sys, functools, collections;
-version_info = ( 1 , 0 , 2 );
+version_info = ( 1 , 0 , 3 );
 
 
 
@@ -392,7 +392,7 @@ class ASS:
 
 	__re_ass_read_section_label = re.compile(r"^(?:\[(.+)\])$", re.U);
 	__re_ass_read_key_value = re.compile(r"^([^:]+):\s?(.+)$", re.U);
-	__re_tag_block = re.compile(r"(\{)(.+?)(\})", re.U);
+	__re_tag_block = re.compile(r"(\{)(.*?)(\})", re.U);
 	__re_tag_block_or_special = re.compile(r"(\{)(.+?)(\})|(\\[hnN])", re.U);
 	__tags_with_parentheses = {
 		"t": True,
@@ -1425,6 +1425,40 @@ class ASS:
 		join = self.__kwarg_default(kwargs, "join", False); # if True, sequential events that would be visible as one are joined
 		join_naive = self.__kwarg_default(kwargs, "join_naive", False); # if True, line joining will ignore any animation tags and join them anyway
 		remove_unseen = self.__kwarg_default(kwargs, "remove_unseen", True); # if True, events with a duration of 0 (or less) are removed
+		snap_start = self.__kwarg_default(kwargs, "snap_start", 0.0); # if greater than 0, starting timecodes within the specified time will be snapped together
+		snap_end = self.__kwarg_default(kwargs, "snap_end", 0.0); # if greater than 0, ending timecodes within the specified time will be snapped together
+		snap_together = self.__kwarg_default(kwargs, "snap_together", 0.0); # if greater than 0, start/end or end/start timecodes within the specified time will be snapped together
+
+		# Snap
+		if (snap_start > 0):
+			for i in range(len(self.events)):
+				e1 = self.events[i];
+				for j in range(i + 1, len(self.events)):
+					e2 = self.events[j];
+					if (abs(e1.Start - e2.Start) <= snap_start):
+						# Perform snap
+						e2.Start = e1.Start;
+
+		if (snap_end > 0):
+			for i in range(len(self.events)):
+				e1 = self.events[i];
+				for j in range(i + 1, len(self.events)):
+					e2 = self.events[j];
+					if (abs(e1.End - e2.End) <= snap_end):
+						# Perform snap
+						e2.End = e1.End;
+
+		if (snap_together > 0):
+			for i in range(len(self.events)):
+				e1 = self.events[i];
+				for j in range(i + 1, len(self.events)):
+					e2 = self.events[j];
+					if (abs(e1.Start - e2.End) <= snap_together):
+						# Perform snap
+						e2.End = e1.Start;
+					if (abs(e1.End - e2.Start) <= snap_together):
+						# Perform snap
+						e2.Start = e1.End;
 
 		# Join
 		if (join):
