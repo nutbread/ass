@@ -277,6 +277,7 @@ pyp.write(function_header(
 		("newlines", { "default": False, "kw": True, "type": "boolean", "description": 'If <code>True</code>, <code>.ass</code> newlines (<code>\\n, \\N</code>) are preserved.<br />If <code>False</code>, newlines are replaced with spaces.', }),
 		("remove_identical", { "default": True, "kw": True, "type": "boolean", "description": 'If <code>True</code>, identical lines (after removing formatting tags) are removed.<br />If <code>False</code>, they are not removed.', }),
 		("join", { "default": True, "kw": True, "type": "boolean", "description": 'If <code>True</code>, identical sequential lines are joined into a single line.<br />If <code>False</code>, they are not joined.', }),
+		("filter_function", { "default": None, "kw": True, "type": "None | function", "description": 'If not <code>None</code>, this is a function that specifies to modify or remove subtitle lines.<br />The function takes two inputs: an <code>ASS.Event</code> instance and its formatted <code>text</code>.<br />The function should return the (modified) <code>text</code> string, or <code>None</code> if the line should be removed.', }),
 	]
 ));
 pyp.write(function_header(
