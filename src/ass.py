@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import os, re, sys, functools, collections;
-version_info = ( 1 , 0 , 3 );
+version_info = ( 1 , 0 , 4 );
 
 
 
@@ -864,6 +864,7 @@ class ASS:
 		newlines = self.__kwarg_default(kwargs, "newlines", False); # if True, minimal newlines are preserved
 		remove_identical = self.__kwarg_default(kwargs, "remove_identical", True); # if True, identical lines (after tags are changed/removed) are removed
 		join = self.__kwarg_default(kwargs, "join", True); # if True, identical sequential lines are joined
+		filter_function = self.__kwarg_default(kwargs, "filter_function", None); # custom function to filter lines: takes 2 arguments: (event, final_text) and should return the same (or modified) final_text to keep, or None to remove
 
 		# Source
 		source = [];
@@ -898,6 +899,20 @@ class ASS:
 
 					# Next
 					j += 1;
+
+				# Next
+				i += 1;
+		if (filter_function is not None):
+			i = 0;
+			while (i < event_count):
+				result = filter_function(sorted_events[i].event, sorted_events[i].text);
+				if (result is None):
+					# Remove
+					sorted_events.pop(i);
+					event_count -= 1;
+					continue;
+				else:
+					sorted_events[i].text = result;
 
 				# Next
 				i += 1;
