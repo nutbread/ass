@@ -75,7 +75,11 @@
 					<code>ass.py</code>'s usage paradigm is designed to make it quick and easy to use, with method design similar to that of <a class="link_external light_underline_inverse" href="https://jquery.com/" target="_blank"><span>jQuery</span></a>. That is, a single command provides many options for what and how it should perform, and multiple commands can be chained easily.
 				</p>
 				<p>
-					Note that clicking the <code>+</code> and <code>&minus;</code> symbols on the left of list entries (along with entry name itself) will expand/contract information about the entry.
+					The extended descriptions are minimized by default for ease of locating functions by name. Click the <strong>+</strong>/<strong>&minus;</strong> <span class="script_enabled">or the function name</span> to expand/shrink the description.
+					<span class="script_enabled">
+						(<a class="light_underline_inverse" id="doc_expand_all"><span>expand all</span></a> |
+						<a class="light_underline_inverse" id="doc_shrink_all"><span>shrink all</span></a>)
+					</span>
 				</p>
 
 				<h6 id="module.members"><span class="hardlink_text">Module members<a class="hardlink" href="#module.members"></a></span></h6>
@@ -86,7 +90,7 @@
 					<ul>
 						<li>
 							<code><strong>version_info</strong></code><br />
-							An array containing the version number information. For example, <code>[1, 0]</code> represents version <code>"1.0"</code>. The length of this array is arbitrary and subject to change.
+							A tuple containing the version number information. For example, <code>(1, 0)</code> represents version <code>"1.0"</code>. The length of this array is arbitrary and subject to change.
 						</li>
 						<li>
 							<code><strong>ASS</strong></code><br />
